@@ -29,7 +29,7 @@ combobox.set("Standard")
 
 def on_create():
     selected_value = combobox.get()
-    print(f"Selected: {selected_value}")
+    subprocess.run(["python", "src/createFont.py", selected_value], check=True)
 
 
 create_button = tk.Button(root, text="Create", command=on_create)

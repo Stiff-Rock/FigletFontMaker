@@ -1,34 +1,23 @@
 import sys
 import subprocess
 
+figlet = "src/figletAsciiArt.js"
+bashInk = "src/inkscapeConvert.sh"
+fontForce = "src/fontforgeScript.py"
 
-def run_js_script(script_path):
-    try:
-        print(f"--Running JavaScript script: {script_path}--")
-        subprocess.run(["node", script_path], check=True)
-    except subprocess.CalledProcessError as e:
-        print(f"--Error occurred while running {script_path}: {e}--")
-
-
-def run_python_script(script_path):
-    try:
-        print(f"--Running Python script: {script_path}--")
-        subprocess.run(["python", script_path], check=True)
-    except subprocess.CalledProcessError as e:
-        print(f"--Error occurred while running {script_path}: {e}--")
-
-
-def run_bash_script(script_path):
-    try:
-        print(f"--Running Bash script: {script_path}--")
-        subprocess.run(["bash", script_path], check=True)
-    except subprocess.CalledProcessError as e:
-        print(f"--Error occurred while running {script_path}: {e}--")
-
+font = sys.argv[1]
 
 if len(sys.argv) > 1:
-    font = sys.argv[1]
-    run_js_script("src/figletAsciiArt.js")
-    run_bash_script("src/inkscapeConvert.sh")
-    run_python_script("src/fontforgeScript.py")
+    try:
+        print(f"--Running JavaScript script: {figlet}--")
+        subprocess.run(["node", figlet, font], check=True)
+
+        print(f"--Running Python script: {bashInk}--")
+        subprocess.run(["bash", bashInk], check=True)
+
+        print(f"--Running Bash script: {fontForce}--")
+        subprocess.run(["python", fontForce], check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"--Error while running: {e}--")
+
     print("All scripts executed.")

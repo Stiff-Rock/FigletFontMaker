@@ -124,13 +124,14 @@ const textMap = {
   "¡": "exclamationdown",
 }
 
-async function generateSvgFiles() {
+async function generateSvgFiles(selectedFont) {
+  console.log("SELECTED FONT: " + selectedFont)
   for (let key in textMap) {
     const value = textMap[key];
 
     try {
       const data = await new Promise((resolve, reject) => {
-        figlet(key, (err, data) => {
+        figlet(key, { font: selectedFont }, (err, data) => {
           if (err) {
             reject(`Error generating ASCII for ${value}: ${err}`);
           } else {
@@ -159,4 +160,8 @@ async function generateSvgFiles() {
   console.log("SVG files created!");
 }
 
-generateSvgFiles();
+const args = process.argv.slice(2);
+const font = args[0] || "Standard";
+
+if (font)
+  generateSvgFiles(font);

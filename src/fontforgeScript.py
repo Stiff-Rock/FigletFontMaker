@@ -121,8 +121,10 @@ text_map = {
     "¡": "exclamationdown",
 }
 
+selectedFont = "ASCIIART"
+
 svg_folder = "ascii_converted"
-output_font = "ASCIIART.ttf"
+output_font = f"fonts/{selectedFont}.ttf"
 font_name = "ASCIIART"
 font_family = "ASCIIART"
 font_weight = "Regular"
