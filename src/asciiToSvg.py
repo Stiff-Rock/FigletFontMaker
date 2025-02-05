@@ -2,7 +2,7 @@ import svgwrite
 import os
 import sys
 
-output_dir = "ascii"
+output_dir = "./ascii"
 os.makedirs(output_dir, exist_ok=True)
 
 file_path = sys.argv[1]

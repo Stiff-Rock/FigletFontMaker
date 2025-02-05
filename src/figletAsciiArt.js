@@ -124,28 +124,39 @@ const textMap = {
   "¡": "exclamationdown",
 }
 
-for (let key in textMap) {
-  const value = textMap[key]
+async function generateSvgFiles() {
+  for (let key in textMap) {
+    const value = textMap[key];
 
-  figlet(key, function(err, data) {
-    if (err) {
-      console.log("Something went wrong with the character '" + value + "'");
-      console.dir(err);
-      return;
+    try {
+      const data = await new Promise((resolve, reject) => {
+        figlet(key, (err, data) => {
+          if (err) {
+            reject(`Error generating ASCII for ${value}: ${err}`);
+          } else {
+            resolve(data);
+          }
+        });
+      });
+
+      const tempFilePath = path.join(os.tmpdir(), `${value}.txt`);
+      fs.writeFileSync(tempFilePath, data);
+
+      exec(`python src/asciiToSvg.py "${tempFilePath}" "${value}"`, (err, _, stderr) => {
+        if (err) {
+          console.error(`Error executing Python script: ${err}`);
+          return;
+        }
+        if (stderr) {
+          console.error(`stderr: ${stderr}`);
+          return;
+        }
+      });
+    } catch (err) {
+      console.error(`Error occurred with the character '${value}': ${err}`);
     }
-
-    const tempFilePath = path.join(os.tmpdir(), `${value}.txt`);
-    fs.writeFileSync(tempFilePath, data);
-
-    exec(`python asciiToSvg.py "${tempFilePath}" "${value}"`, (err, _, stderr) => {
-      if (err) {
-        console.error(`Error executing Python script: ${err}`);
-        return;
-      }
-      if (stderr) {
-        console.error(`stderr: ${stderr}`);
-        return;
-      }
-    });
-  });
+  }
+  console.log("SVG files created!");
 }
+
+generateSvgFiles();

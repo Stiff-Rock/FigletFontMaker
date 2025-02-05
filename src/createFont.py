@@ -1,3 +1,4 @@
+import sys
 import subprocess
 
 
@@ -25,8 +26,9 @@ def run_bash_script(script_path):
         print(f"--Error occurred while running {script_path}: {e}--")
 
 
-run_js_script("figletAsciiArt.js")
-run_bash_script("inkscapeConvert.sh")
-run_python_script("fontforgeScript.py")
-
-print("All scripts executed.")
+if len(sys.argv) > 1:
+    font = sys.argv[1]
+    run_js_script("src/figletAsciiArt.js")
+    run_bash_script("src/inkscapeConvert.sh")
+    run_python_script("src/fontforgeScript.py")
+    print("All scripts executed.")

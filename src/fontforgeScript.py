@@ -135,7 +135,6 @@ font.weight = font_weight
 
 fixed_scale = 10.0
 
-# TODO: Fit '[', '{', '(' and put apostrophe, accent
 for char, name in text_map.items():
     svg_file = os.path.join(svg_folder, f"{name}.svg")
     print(f"---{svg_file}---")
