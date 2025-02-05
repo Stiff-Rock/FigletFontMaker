@@ -29,14 +29,4 @@ run_js_script("figletAsciiArt.js")
 run_bash_script("inkscapeConvert.sh")
 run_python_script("fontforgeScript.py")
 
-commands = [
-    "sudo -S cp /home/yago/Shared/CodeProjects/TextAsciiArtToSvg/ASCIIART.ttf /usr/share/fonts",
-    "sudo -S fc-cache -fv",
-]
-
-for cmd in commands:
-    result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
-    print(result.stdout)
-    print(result.stderr)
-
 print("All scripts executed.")
