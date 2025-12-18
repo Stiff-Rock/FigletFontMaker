@@ -2,13 +2,15 @@ import os
 import fontforge
 import json
 
-with open("charMap.json", "r") as file:
+with open("charMap.json", "r", encoding="utf-8") as file:
     text_map = json.load(file)
 
 selectedFont = "ASCIIART"
 
 svg_folder = "ascii_converted"
-output_font = f"fonts/{selectedFont}.ttf"
+output_font = (
+    f"{os.path.expanduser('~')}/CodeProjects/Portfolio/fonts/{selectedFont}.ttf"
+)
 font_name = "ASCIIART"
 font_family = "ASCIIART"
 font_weight = "Regular"
